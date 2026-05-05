@@ -117,5 +117,100 @@ namespace SerialCommunication
                 labelStatus.Text = "Error: " + ex.Message;
             }
         }
+
+        private void checkBoxDigital2_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino != null && serialPortArduino.IsOpen)
+                {
+                    string command = checkBoxDigital2.Checked ? "set d2 high" : "set d2 low";
+                    serialPortArduino.WriteLine(command);
+                    labelStatus.Text = $"Sent: {command}";
+                }
+                else
+                {
+                    MessageBox.Show("Serial port is not open.", "Serial", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    labelStatus.Text = "Not connected";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending command: {ex.Message}", "Serial error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
+
+        public void trackBarPWM9_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino != null && serialPortArduino.IsOpen)
+                {
+                    int value = trackBarPWM9.Value;
+                    string command = $"set pwm9 {value}";
+                    serialPortArduino.WriteLine(command);
+                    labelStatus.Text = $"Sent: {command}";
+                }
+                else
+                {
+                    MessageBox.Show("Serial port is not open.", "Serial", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    labelStatus.Text = "Not connected";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending command: {ex.Message}", "Serial error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
+
+        public void trackBarPWM10_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino != null && serialPortArduino.IsOpen)
+                {
+                    int value = trackBarPWM10.Value;
+                    string command = $"set pwm10 {value}";
+                    serialPortArduino.WriteLine(command);
+                    labelStatus.Text = $"Sent: {command}";
+                }
+                else
+                {
+                    MessageBox.Show("Serial port is not open.", "Serial", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    labelStatus.Text = "Not connected";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending command: {ex.Message}", "Serial error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
+
+        public void trackBarPWM11_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino != null && serialPortArduino.IsOpen)
+                {
+                    int value = trackBarPWM11.Value;
+                    string command = $"set pwm11 {value}";
+                    serialPortArduino.WriteLine(command);
+                    labelStatus.Text = $"Sent: {command}";
+                }
+                else
+                {
+                    MessageBox.Show("Serial port is not open.", "Serial", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    labelStatus.Text = "Not connected";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending command: {ex.Message}", "Serial error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
     }
 }
