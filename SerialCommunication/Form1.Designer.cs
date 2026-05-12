@@ -33,6 +33,7 @@
             this.labelPoort = new System.Windows.Forms.Label();
             this.comboBoxPoort = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.timerOefening3 = new System.Windows.Forms.Timer();
             this.tabPageInstellingen = new System.Windows.Forms.TabPage();
             this.checkBoxDtrEnable = new System.Windows.Forms.CheckBox();
             this.checkBoxRtsEnable = new System.Windows.Forms.CheckBox();
@@ -173,6 +174,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1568, 802);
             this.tabControl.TabIndex = 9;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
             // tabPageInstellingen
             // 
@@ -879,6 +881,12 @@
             this.Name = "Form1";
             this.Text = "BZL seriële communicatie Flor De Raedt";
             this.Load += new System.EventHandler(this.Form1_Load);
+            // 
+            // timerOefening3
+            // 
+            this.timerOefening3.Interval = 1000;
+            this.timerOefening3.Tick += new System.EventHandler(this.timerOefening3_Tick);
+            this.timerOefening3.Enabled = false;
             this.tabControl.ResumeLayout(false);
             this.tabPageInstellingen.ResumeLayout(false);
             this.tabPageInstellingen.PerformLayout();
@@ -973,6 +981,7 @@
         internal System.Windows.Forms.Label labelGewensteTemp;
         internal System.Windows.Forms.Label label9;
         internal System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Timer timerOefening3;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
     }

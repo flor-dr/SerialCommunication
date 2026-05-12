@@ -212,5 +212,61 @@ namespace SerialCommunication
                 labelStatus.Text = "Error: " + ex.Message;
             }
         }
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.tabControl.SelectedTab == this.tabPageOefening3)
+                    this.timerOefening3.Enabled = true;
+                else
+                    this.timerOefening3.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private async void timerOefening3_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortArduino != null && serialPortArduino.IsOpen)
+                {
+                    // Clear any pending data
+                    try { serialPortArduino.ReadExisting(); } catch { }
+
+                    // Helper: ask Arduino and read available reply without blocking UI thread
+                    async Task<bool> QueryDigital(int pin)
+                    {
+                        try
+                        {
+                            serialPortArduino.WriteLine($"get d{pin}");
+                            // short pause to give Arduino time to respond; tune if needed
+                            await Task.Delay(120);
+                            string respAll = serialPortArduino.ReadExisting();
+                            if (string.IsNullOrWhiteSpace(respAll)) return false;
+                            var lines = respAll.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                            string line = lines.FirstOrDefault(l => l.Contains($"d{pin}:") ) ?? lines.FirstOrDefault();
+                            if (string.IsNullOrWhiteSpace(line)) return false;
+                            string val = line.Contains(":") ? line.Split(':').Last().Trim() : line.Trim();
+                            return val == "1";
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    }
+
+                    radioButtonDigital5.Checked = await QueryDigital(5);
+                    radioButtonDigital6.Checked = await QueryDigital(6);
+                    radioButtonDigital7.Checked = await QueryDigital(7);
+                }
+            }
+            catch (Exception ex)
+            {
+                labelStatus.Text = "Error: " + ex.Message;
+            }
+        }
     }
 }
